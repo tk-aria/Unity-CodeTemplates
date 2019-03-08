@@ -1,0 +1,37 @@
+﻿#if UNITY_EDITOR
+using UnityEditor;
+#endif // UNITY_EDITOR
+
+using System;
+using UnityEngine;
+
+
+[Serializable][CreateAssetMenu(menuName="ScriptableObject/#NAME#")]
+public class #SCRIPTNAME# : ScriptableObject
+{
+
+    public static #SCRIPTNAME# Create()
+    {
+        return ScriptableObject.CreateInstance<#NAME#>();
+    }
+    
+    public static #SCRIPTNAME# LoadRuntime(string path)
+    {
+        return Resources.Load<#NAME#>("#NAME#/" + path);
+    }
+
+    public static #SCRIPTNAME# Instantiate(string path)
+    {
+        return UnityEngine.Object.Instantiate<#NAME#>(LoadRuntime(path));
+    }
+    
+    #if UNITY_EDITOR
+    public static #SCRIPTNAME# LoadEditor(string path)
+    {
+        return AssetDatabase.LoadAssetAtPath<#NAME#>("#NAME#/" + path);
+    }
+    #endif // UNITY_EDITOR
+    
+}
+
+

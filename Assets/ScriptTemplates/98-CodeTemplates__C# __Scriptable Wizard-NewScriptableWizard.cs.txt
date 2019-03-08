@@ -1,0 +1,72 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+
+using UnityEditor;
+using UnityEngine;
+
+
+// This Script is Editor Only.
+[CreateAssetMenu(menuName="ScriptableWizard/#NAME#")]
+public class #SCRIPTNAME# : CodeTemplates.UnitySerializeWindow
+{
+
+    public static EditorConf defaultEditorConf = null;
+    private const string editorConfAssetName = "Assets/bin/#SCRIPTNAME#EditorConf.asset";
+    
+    #region Field
+    [SerializeField][Header("#SCRIPTNAME# Settings")][Space(16)]
+    private int sample;
+    
+    #endregion // Field End.
+    
+    [MenuItem("Window/#SCRIPTNAME#")]
+    static void Create()
+    {
+    
+        defaultEditorConf = defaultEditorConf ?? AssetDatabase.LoadAssetAtPath<EditorConf>(editorConfAssetName);
+
+        var editorConf = defaultEditorConf ?? new EditorConf()
+        {
+            editorTitle = "#NAME#",
+            editorCaption = "#NAME# : editor version @ ",
+            editorVersion = 1.01,
+           
+            renderSetting = new RenderSetting(){
+            
+              renderType = RenderSetting.RenderType.Both,  
+            },
+            
+            footerButtons = new FooterButton[]{
+
+                new FooterButton(){
+                    name = "Enter"
+                }
+            }
+        };
+
+        var display = ShowDisplay(typeof(#NAME#), editorConf).Initialize() as #NAME#;
+
+    }
+
+    public override ScriptableWizard Initialize()
+    {
+        return this;
+    }
+
+    public override void OnFinalize()
+    {
+
+    }
+
+    public override void OnUpdate()
+    {
+     
+    }
+
+    public override void OnRender()
+    {
+
+    }
+
+}
+
